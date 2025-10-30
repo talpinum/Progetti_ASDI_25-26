@@ -17,7 +17,7 @@ architecture behavioral of AutomaSingoloProcesso is
     
 begin
 
-    logica_combinatoria: PROCESS (A, RST)
+    processo_sequenziale: PROCESS (A, RST)
     begin
         if RST = '1' then
             statoCorrente <= S0;
