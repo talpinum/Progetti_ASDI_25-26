@@ -1,0 +1,3 @@
+## Esercizio 3.2
+
+Sintetizzare su board la rete sviluppata al punto precedente scegliendo una delle implementazioni sviluppate e considerando la seguente modifica: il riconoscitore dovrà acquisire un nuovo bit di ingresso in corrispondenza di un segnale di enable E fornito dall’esterno che sarà campionato sul fronte di salita del segnale di abilitazione A. Si utilizzi uno switch S1 per codificare l’input i e un bottone B per fornire il segnale di enable E, e si utilizzi un led per codificare Y. Si noti che, in corrispondenza della pressione del bottone B, la macchina dovrà acquisire un solo dato i.
