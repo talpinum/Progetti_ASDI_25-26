@@ -30,7 +30,23 @@ begin
 
     logica_combinatoria: PROCESS (i, statoCorrente)
     begin
+        Y <= '0';
         if (i = '0') then
+            statoProssimo <= S0;
+        else
+            case statoCorrente is
+                when S0 =>
+                    statoProssimo <= S1;
+                when S1 =>
+                    statoProssimo <= S2;
+                when S2 =>
+                    statoProssimo <= S0;
+                    Y <= '1';
+            end case;
+        end if;
+            
+        
+        /*if (i = '0') then
             statoProssimo <= S0;
             Y <= '0';
         else
@@ -45,7 +61,7 @@ begin
                     statoProssimo <= S0;
                     Y <= '1';
             end case;
-        end if;
+        end if;*/
 
 
         /*case statoCorrente is
