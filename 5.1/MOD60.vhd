@@ -38,7 +38,7 @@ entity MOD60 is
            load : in STD_LOGIC;
            rst : in STD_LOGIC;
            A : in STD_LOGIC;
-           A_next : in STD_LOGIC);
+           A_next : out STD_LOGIC);
 end MOD60;
 
 architecture Behavioral of MOD60 is
