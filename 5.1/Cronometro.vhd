@@ -1,0 +1,54 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 12.11.2025 18:41:51
+-- Design Name: 
+-- Module Name: Cronometro - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx leaf cells in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity Cronometro is
+    Port ( clk : in STD_LOGIC;
+           rst : in STD_LOGIC;
+           start_stop : in STD_LOGIC;
+           load_h : in STD_LOGIC;
+           load_min : in STD_LOGIC;
+           load_s : in STD_LOGIC;
+           y_secondi : out STD_LOGIC_VECTOR (5 downto 0);
+           y_minuti : out STD_LOGIC_VECTOR (5 downto 0);
+           y_ore : out STD_LOGIC_VECTOR (4 downto 0);
+           set_h : in STD_LOGIC_VECTOR (4 downto 0);
+           set_min : in STD_LOGIC_VECTOR (5 downto 0);
+           set_s : in STD_LOGIC_VECTOR (5 downto 0));
+end Cronometro;
+
+architecture Behavioral of Cronometro is
+
+begin
+
+
+end Behavioral;
