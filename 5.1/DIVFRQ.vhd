@@ -42,8 +42,8 @@ architecture Behavioral of DIVFRQ is
     signal counter : unsigned(27 downto 0) := (others => '0');
     signal no_division : BOOLEAN := true;
     
-    -- inserire 99999999 al posto di 9 per passare da 100 MHz a 1 Hz
-    -- La funzione to_unsigned(9, 28) converte il numero decimale 9 in un vettore unsigned a 28 bit.
+    
+    -- La funzione to_unsigned(99999999, 28) converte il numero decimale 99999999 in un vettore unsigned a 28 bit.
     -- questa costante rappresenta la soglia a cui il contatore arriva prima di fare una certa azione
     -- quanti cicli di clock deve contare
     -- Allora la possiamo usare come confronto nel processo    
