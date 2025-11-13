@@ -54,8 +54,8 @@ architecture structural of MOD24 is
         
     signal counter : std_logic_vector(4 downto 0) := (others => '0');
     signal reset : std_logic := '0';
-    signal rst_local : std_logic;
-    signal A0, A1, A2, A3, A4 : std_logic;     
+    signal rst_local : std_logic := '0';
+    signal A0, A1, A2, A3, A4 : std_logic := '0';     
             
 begin
     -- 23 in binario 10111
