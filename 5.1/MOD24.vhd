@@ -49,7 +49,7 @@ architecture structural of MOD24 is
                load : in STD_LOGIC;
                set : in STD_LOGIC;
                rst_count : in STD_LOGIC;
-               A : in STD_LOGIC);
+               A : in STD_LOGIC); -- E' il T del flip flop
         end component;
         
     signal counter : std_logic_vector(4 downto 0) := (others => '0');
