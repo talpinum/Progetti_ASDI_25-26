@@ -38,7 +38,7 @@ entity FFT is
            load : in STD_LOGIC;
            set : in STD_LOGIC;
            rst_count : in STD_LOGIC;
-           A : in STD_LOGIC);
+           A : in STD_LOGIC); -- è il mio ingresso T
 end FFT;
 
 architecture Behavioral of FFT is
