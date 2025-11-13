@@ -43,7 +43,29 @@ end FFT;
 
 architecture Behavioral of FFT is
 
+    signal counter : std_logic := '0'; -- mi serve per memorizzare lo stato 
 begin
-
+    fft: process(clk)
+    begin
+        if falling_edge(clk) then
+            if (rst = '1') then
+                counter <= '0';
+            else
+                if (load ='1') then
+                    counter <= set;
+                else
+                    if(rst_count = '1') then
+                        counter <= '0';
+                    else
+                        if (A ='1') then
+                            counter <= not counter;
+                        end if;
+                    end if;
+                end if;
+            end if;
+        end if;
+    end process;
+    
+    count <= counter;
 
 end Behavioral;
