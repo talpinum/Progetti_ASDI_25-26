@@ -47,7 +47,7 @@ architecture Behavioral of DIVFRQ is
     -- questa costante rappresenta la soglia a cui il contatore arriva prima di fare una certa azione
     -- quanti cicli di clock deve contare
     -- Allora la possiamo usare come confronto nel processo    
-    CONSTANT divider : unsigned(27 DOWNTO 0) := to_unsigned(9, 28);
+    CONSTANT divider : unsigned(27 DOWNTO 0) := to_unsigned(99999999, 28);
 begin
     
     process(clk_in, rst, no_division)
