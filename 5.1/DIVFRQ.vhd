@@ -21,6 +21,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -38,8 +39,35 @@ entity DIVFRQ is
 end DIVFRQ;
 
 architecture Behavioral of DIVFRQ is
-
+    signal counter : unsigned(27 downto 0) := (others => '0');
+    signal no_division : BOOLEAN := true;
+    
+    -- inserire 99999999 al posto di 9 per passare da 100 MHz a 1 Hz
+    -- La funzione to_unsigned(9, 28) converte il numero decimale 9 in un vettore unsigned a 28 bit.
+    -- questa costante rappresenta la soglia a cui il contatore arriva prima di fare una certa azione
+    -- quanti cicli di clock deve contare
+    -- Allora la possiamo usare come confronto nel processo    
+    CONSTANT divider : unsigned(27 DOWNTO 0) := to_unsigned(9, 28);
 begin
-
-
+    
+    process(clk_in, rst, no_division)
+    begin
+        if (no_division = true) then
+            clk_out <= clk_in;
+        else
+            if(rst = '1') then
+                clk_out <= '0';
+                counter <= (others => '0');
+            elsif rising_edge(clk_in) then
+                if counter = divider then
+                    counter <= (others => '0');
+                    clk_out <= '1';
+                else
+                    counter <= counter + 1;
+                    clk_out <= '0';
+                end if;
+            end if;
+        end if;
+    end process;
+                  
 end Behavioral;
