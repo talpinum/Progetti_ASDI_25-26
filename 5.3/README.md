@@ -1,0 +1,2 @@
+## Esercizio 5.3
+Estendere il componente sviluppato ai punti precedenti in modo che sia in grado di acquisire e memorizzare internamente fino ad un numero N di intertempi in corrispondenza di un ingresso di stop. Opzionalmente, il componente può prevedere una modalità di visualizzazione in cui, alla  pressione di un bottone, vengano visualizzati sui display gli intertempi memorizzati (uno per ogni pressione).
