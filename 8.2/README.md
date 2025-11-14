@@ -1,0 +1,2 @@
+## Esercizio 8.2
+Modificare l’esercizio 8.1 utilizzando un handshaking completo e ponendosi nella seguente condizione: oltre ai segnali per l’handshaking, B ha un segnale di input okUser con il quale un utente esterno segnala che il nodo può procedere ad acquisire nuove stringhe da A. Nelle comunicazioni fra A e B, è importante che B notifichi ad A non solo che ha ricevuto la stringa ma anche che ha ricevuto l'ok dall’utente esterno. Si utilizzino opportunamente i segnali di handshaking per realizzare il comportamento descritto.
