@@ -1,6 +1,8 @@
 # 📚 Repo per i progetti di ASDI 25/26
-## Link elaborato overleaf: https://www.overleaf.com/project/690b5621a46aaf9600393e30
-##### Link elaborato word: https://communitystudentiunina-my.sharepoint.com/:w:/g/personal/lore_iorio_studenti_unina_it/Eb0UTEekGu9HonoFpVXlURYB7FGT1JESJLJiIMsiulJr5w?e=dZD5Td
+The place where never-before-seen cooking happens 🔥🔥
+## 🔗 Link elaborato:
+[![Overleaf](https://img.shields.io/badge/Overleaf-Link-90EE90?style=for-the-badge&logo=overleaf&logoColor=white&labelColor=006400)](https://www.overleaf.com/project/690b5621a46aaf9600393e30)
+[![Word](https://img.shields.io/badge/Word-Link-ADD8E6?style=for-the-badge&logo=libreofficewriter&logoColor=white&labelColor=00008B)](https://communitystudentiunina-my.sharepoint.com/:w:/g/personal/lore_iorio_studenti_unina_it/Eb0UTEekGu9HonoFpVXlURYB7FGT1JESJLJiIMsiulJr5w?e=dZD5Td)
 
 ---
 ## TODO 📝
