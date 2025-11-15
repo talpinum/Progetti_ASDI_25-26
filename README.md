@@ -7,7 +7,7 @@
 ---
 ## TODO 📝
 <details>
-<summary><strong>Esercizio 1 ⏳</strong></summary>
+<summary><strong>⏳ Esercizio 1 - Multiplexer 32:1</strong></summary>
 
 - [x] 1.1
 - [x] 1.2
@@ -16,7 +16,7 @@
 </details>
 
 <details>
-<summary><strong>Esercizio 2 ⏳</strong></summary>
+<summary><strong>⏳ Esercizio 2 - Sistema ROM+M</strong></summary>
 
 - [x] 2.1
 - [ ] 2.2
@@ -24,7 +24,7 @@
 </details>
 
 <details>
-<summary><strong>Esercizio 3 ⏳</strong></summary>
+<summary><strong>⏳ Esercizio 3 Riconoscitore di sequenze</strong></summary>
 
 - [x] 3.1
 - [ ] 3.2
@@ -32,14 +32,14 @@
 </details>
 
 <details>
-<summary><strong>Esercizio 4 ✅</strong></summary>
+<summary><strong>✅ Esercizio 4 - Shift register</strong></summary>
 
 - [x] 4.1
 
 </details>
 
 <details>
-<summary><strong>Esercizio 5 ⏳</strong></summary>
+<summary><strong>⏳ Esercizio 5 - Cronometro</strong></summary>
 
 - [x] 5.1
 - [ ] 5.2
@@ -47,7 +47,7 @@
 </details>
 
 <details>
-<summary><strong>Esercizio 6 ❌</strong></summary>
+<summary><strong>❌ Esercizio 6 - Sistema di lettura-elaborazione-scrittura PO_PC</strong></summary>
 
 - [ ] 6.1
 - [ ] 6.2
@@ -55,7 +55,7 @@
 </details>
 
 <details>
-<summary><strong>Esercizio 8 ❌</strong></summary>
+<summary><strong>❌ Esercizio 8 - Comunicazione con handshaking</strong></summary>
 
 - [ ] 8.1
 - [ ] 8.2
@@ -63,14 +63,14 @@
 </details>
 
 <details>
-<summary><strong>Esercizio 10 ❌</strong></summary>
+<summary><strong>❌ Esercizio 10 - UART</strong></summary>
 
 - [ ] 10
 
 </details>
 
 <details>
-<summary><strong>Esercizio 11 ❌</strong></summary>
+<summary><strong>❌ Esercizio 11- Rete di interconnessione multistadio</strong></summary>
 
 - [ ] 11.1
 - [ ] 11.2
