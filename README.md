@@ -47,7 +47,7 @@
 </details>
 
 <details>
-<summary><strong>❌ Esercizio 6 - Sistema di lettura-elaborazione-scrittura PO_PC</strong></summary>
+<summary><strong>⏳ Esercizio 6 - Sistema di lettura-elaborazione-scrittura PO_PC</strong></summary>
 
 - [ ] 6.1
 - [ ] 6.2
