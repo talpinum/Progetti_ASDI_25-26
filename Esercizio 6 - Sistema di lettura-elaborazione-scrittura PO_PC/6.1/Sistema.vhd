@@ -36,6 +36,7 @@ entity Sistema is
     clk_sis : in std_logic;
     INIZIO : in std_logic;
     RST_sis : in std_logic;
+ -- X_in    : in std_logic_vector(7 downto 0);
     Y : out std_logic_vector(7 downto 0)
     );
 end Sistema;
@@ -122,6 +123,9 @@ architecture Structural of Sistema is
     signal rom_out : std_logic_vector(7 downto 0);
     signal mem_out : std_logic_vector(7 downto 0);
     signal comparatore_out : std_logic;
+
+ -- signal X_reg : std_logic_vector(7 downto 0);
+
     
 begin
 
@@ -159,6 +163,7 @@ begin
     PORT MAP(
     a => rom_out,
     x => "10101010",
+ -- x => X_reg
     y => comparatore_out
     );
     
@@ -173,5 +178,7 @@ begin
     );
     
     Y<= mem_out;
+ -- X_reg <= X_in;
+
 
 end Structural;
