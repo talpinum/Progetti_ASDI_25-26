@@ -10,7 +10,7 @@ entity ROM is
     
     port (
         clk : in std_logic;
-        rst : in std_logic;
+       -- rst : in std_logic;
         address: in STD_LOGIC_VECTOR(ADDR_WIDTH-1 downto 0);
         content: out STD_LOGIC_VECTOR(7 downto 0)
     );
@@ -37,11 +37,7 @@ architecture behavioral of ROM is
         process(clk)
             begin
                 if rising_edge(clk) then
-                    if rst = '1' then
-                        dout_reg <= (others => '0');
-                    else
                         dout_reg <= ROM(to_integer(unsigned(address)));
-                    end if;
                end if;
         end process;
                     
