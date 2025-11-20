@@ -93,9 +93,8 @@ begin
                        end case;
                    end if;
                 end if;
-                      
-          SO <= tmp(N-1);            
-          
     END process;
 
+    SO <= tmp(N-1);
+                    
 end Behavioral;
