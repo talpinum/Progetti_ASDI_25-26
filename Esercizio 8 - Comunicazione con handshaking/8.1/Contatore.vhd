@@ -69,7 +69,7 @@ begin
     end process;
     
     value <= std_logic_vector(counter);
-    last <= '1' when  to_unsigned(N-1, addr_width) else '0';
+    last <= '1' when counter =  to_unsigned(N-1, addr_width) else '0';
                 
 
 
