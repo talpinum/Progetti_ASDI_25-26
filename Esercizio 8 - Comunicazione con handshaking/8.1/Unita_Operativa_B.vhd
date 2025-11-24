@@ -89,7 +89,7 @@ begin
         
      Divisore8_4 : Divisore
         Port map(
-            X => data_in,
+            X => data_reg,
             S => sinistra,
             D => destra
         );
