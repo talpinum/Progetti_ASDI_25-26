@@ -27,7 +27,7 @@ architecture behavioral of ROM is
         X"08", X"09", X"0A", X"0B",
         X"0C", X"0D", X"0E", X"0F"
     );
-
-    content <= ROM(to_integer(unsigned(address)));
+    begin
+       content <= ROM(to_integer(unsigned(address)));
 
 end behavioral;
