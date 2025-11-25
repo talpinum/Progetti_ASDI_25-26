@@ -55,10 +55,10 @@
 </details>
 
 <details>
-<summary><strong>⏳ Esercizio 8 - Comunicazione con handshaking</strong></summary>
+<summary><strong>✅ Esercizio 8 - Comunicazione con handshaking</strong></summary>
 
 - [x] 8.1
-- [ ] 8.2
+- [x] 8.2
 
 </details>
 
