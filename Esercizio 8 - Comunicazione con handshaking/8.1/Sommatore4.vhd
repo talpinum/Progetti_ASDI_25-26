@@ -40,10 +40,33 @@ entity Sommatore4 is
   );
 end Sommatore4;
 
-architecture Behavioral of Sommatore4 is
+architecture Structural of Sommatore4 is
+
+component Full_Adder is
+    Port (
+        a : in std_logic;
+        b : in std_logic;
+        c_in : in std_logic;
+        s : out std_logic;
+        c_out : out std_logic
+        );
+    end component;
+
+signal c : std_logic_vector(4 downto 0);
 
 begin
     
-    Y <= std_logic_vector(unsigned(Sx) + unsigned(Dx));
+    gen_FA : for i in 0 to 3 generate
+        FA_i : Full_Adder
+            port map(
+                a => Sx(i),
+                b => Dx(i),
+                c_in => c(i),
+                s => Y(i),
+                c_out => c(i+1)
+                );
+    end generate;     
     
-end Behavioral;
+    Y(4) <= c(4); -- carry finale = bit 4 del risultato
+    
+end Structural;
