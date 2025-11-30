@@ -55,7 +55,7 @@ architecture Structural of Sommatore4 is
 
 begin
 
-    gen_FA : for i in 0 to 3 generate
+    FA : for i in 0 to 3 generate
         FA_i : Full_Adder
             Port map(
                 a => Sx(i),
