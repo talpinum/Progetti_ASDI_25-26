@@ -51,7 +51,7 @@ architecture Structural of Sommatore4 is
         );
     end component;  
     
-    signal c : std_logic_vector(4 downto 0);
+    signal c : std_logic_vector(4 downto 0) := (others => '0');
 
 begin
 
