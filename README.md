@@ -63,9 +63,9 @@
 </details>
 
 <details>
-<summary><strong>❌ Esercizio 10 - UART</strong></summary>
+<summary><strong>✅ Esercizio 10 - UART</strong></summary>
 
-- [ ] 10
+- [x] 10
 
 </details>
 
