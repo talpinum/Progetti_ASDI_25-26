@@ -54,7 +54,7 @@
 
 </details>
 
-</details>
+<details>
 <summary><strong>❌ Esercizio 7 - Moltiplicatore di Booth</strong></summary>
 
 - [ ] 7.1
