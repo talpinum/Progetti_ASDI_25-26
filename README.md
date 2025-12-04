@@ -54,6 +54,14 @@
 
 </details>
 
+</details>
+<summary><strong>❌ Esercizio 7 - Moltiplicatore di Booth</strong></summary>
+
+- [ ] 7.1
+- [ ] 7.2
+
+</details>
+
 <details>
 <summary><strong>✅ Esercizio 8 - Comunicazione con handshaking</strong></summary>
 
