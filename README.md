@@ -71,6 +71,13 @@
 </details>
 
 <details>
+<summary><strong>❌ Esercizio 9 - Processore</strong></summary>
+
+- [ ] 9
+
+</details>
+
+<details>
 <summary><strong>✅ Esercizio 10 - UART</strong></summary>
 
 - [x] 10
