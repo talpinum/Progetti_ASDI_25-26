@@ -7,11 +7,11 @@
 ---
 ## TODO 📝
 <details>
-<summary><strong>⏳ Esercizio 1 - Multiplexer 32:1</strong></summary>
+<summary><strong>✅ Esercizio 1 - Multiplexer 32:1</strong></summary>
 
 - [x] 1.1
 - [x] 1.2
-- [ ] 1.3
+- [x] 1.3
 
 </details>
 
