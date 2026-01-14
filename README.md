@@ -16,10 +16,10 @@
 </details>
 
 <details>
-<summary><strong>⏳ Esercizio 2 - Sistema ROM+M</strong></summary>
+<summary><strong>✅ Esercizio 2 - Sistema ROM+M</strong></summary>
 
 - [x] 2.1
-- [ ] 2.2
+- [x] 2.2
 
 </details>
 
