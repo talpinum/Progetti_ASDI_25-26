@@ -24,10 +24,10 @@
 </details>
 
 <details>
-<summary><strong>⏳ Esercizio 3 - Riconoscitore di sequenze</strong></summary>
+<summary><strong>✅ Esercizio 3 - Riconoscitore di sequenze</strong></summary>
 
 - [x] 3.1
-- [ ] 3.2
+- [x] 3.2
 
 </details>
 
