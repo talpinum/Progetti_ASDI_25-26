@@ -170,38 +170,42 @@ begin
     selezione : process (CLK, start_stop, cleared_load_sec, cleared_load_min, cleared_load_hours)
     begin
         if rising_edge(CLK) then
-            if start_stop = '0' then
-                if cleared_load_sec = '1' then
-                    if unsigned(set_smh) <= 59 then
-                        var_second <= set_smh;
+            if cleared_reset = '1' then
+            var_second <= (others => '0');
+            var_min    <= (others => '0');
+            var_hours  <= (others => '0');
+                elsif start_stop = '0' then
+                    if cleared_load_sec = '1' then
+                        if unsigned(set_smh) <= 59 then
+                            var_second <= set_smh;
+                            --in_dss <= var_value;
+                        else
+                            var_second <= "111011"; -- 59
+                        end if;
                         --in_dss <= var_value;
-                    else
-                        var_second <= "111011"; -- 59
-                    end if;
-                    --in_dss <= var_value;
-
-                elsif cleared_load_min = '1' then
-                    if unsigned(set_smh) <= 59 then
-                        var_min <= set_smh;
-                    --in_dss <= var_value;
-                    else
-                        var_min <= "111011"; -- 59
-                    end if;
-
-                elsif cleared_load_hours = '1' then
-                    if unsigned(set_smh(1 to 5)) <= 23 then
-                        var_hours <= set_smh(1 to 5);
+    
+                    elsif cleared_load_min = '1' then
+                        if unsigned(set_smh) <= 59 then
+                            var_min <= set_smh;
                         --in_dss <= var_value;
-                    else
-                        var_hours <= "10111"; -- 23
+                        else
+                            var_min <= "111011"; -- 59
+                        end if;
+    
+                    elsif cleared_load_hours = '1' then
+                        if unsigned(set_smh(1 to 5)) <= 23 then
+                            var_hours <= set_smh(1 to 5);
+                            --in_dss <= var_value;
+                        else
+                            var_hours <= "10111"; -- 23
+                        end if;
+                        --in_dss <= var_value;
+                    --else
+                        --in_dss <= temp_value;
                     end if;
-                    --in_dss <= var_value;
                 --else
                     --in_dss <= temp_value;
-                end if;
-            --else
-                --in_dss <= temp_value;
-                
+                    
             end if;
         end if;
     end process;  
