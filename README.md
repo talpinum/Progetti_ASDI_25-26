@@ -42,7 +42,8 @@
 <summary><strong>⏳ Esercizio 5 - Cronometro</strong></summary>
 
 - [x] 5.1
-- [ ] 5.2
+- [x] 5.2
+- [ ] 5.3
 
 </details>
 
