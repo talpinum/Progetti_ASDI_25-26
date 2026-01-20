@@ -75,9 +75,10 @@ architecture structural of unita_controllo is
 						
 		--acquisisce gli operandi, su cui il sommatore inizia a lavorare immediatamente
 		 WHEN wait_sr => 
-
-		            selAQ <= '1';
-		            loadAQ <= '1'; --fornisce il segnale di caricamento in A del risultato della somma
+			 		
+					next_state <= avvia_scan;
+		            --selAQ <= '1';
+		            --loadAQ <= '1'; --fornisce il segnale di caricamento in A del risultato della somma
         
         
          WHEN avvia_scan =>
