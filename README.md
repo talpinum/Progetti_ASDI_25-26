@@ -56,10 +56,10 @@
 </details>
 
 <details>
-<summary><strong>⏳ Esercizio 7 - Moltiplicatore di Booth</strong></summary>
+<summary><strong>✅ Esercizio 7 - Moltiplicatore di Booth</strong></summary>
 
 - [x] 7.1
-- [ ] 7.2
+- [x] 7.2
 
 </details>
 
