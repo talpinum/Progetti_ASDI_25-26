@@ -39,11 +39,11 @@
 </details>
 
 <details>
-<summary><strong>⏳ Esercizio 5 - Cronometro</strong></summary>
+<summary><strong>✅ Esercizio 5 - Cronometro</strong></summary>
 
 - [x] 5.1
 - [x] 5.2
-- [ ] 5.3
+- [x] 5.3
 
 </details>
 
