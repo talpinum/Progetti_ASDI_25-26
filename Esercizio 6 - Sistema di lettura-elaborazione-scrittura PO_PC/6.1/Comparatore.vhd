@@ -64,3 +64,27 @@ begin
 --    y <= eq_reg;
 
 end Behavioral;
+
+
+
+
+
+
+  l--ibrary IEEE;
+--use IEEE.STD_LOGIC_1164.ALL;
+
+--entity Comparatore is
+  --generic (
+    --X_REF : std_logic_vector(7 downto 0) := "10101010"
+  --);
+  --port (
+    --a : in  std_logic_vector(7 downto 0);
+    --y : out std_logic
+  --);
+--end Comparatore;
+
+--architecture Behavioral of Comparatore is
+--begin
+  --  y <= '1' when a = X_REF else '0';
+--end Behavioral;
+
