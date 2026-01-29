@@ -36,7 +36,6 @@ entity Sistema is
     clk_sis : in std_logic;
     INIZIO : in std_logic;
     RST_sis : in std_logic;
- -- X_in    : in std_logic_vector(7 downto 0);
     Y : out std_logic_vector(7 downto 0)
     );
 end Sistema;
@@ -62,7 +61,7 @@ architecture Structural of Sistema is
     component Comparatore is
       Port (
         a : in std_logic_vector(7 downto 0);
-        x : in std_logic_vector(7 downto 0);
+        --x : in std_logic_vector(7 downto 0);
         y : out std_logic
         -- clk
         -- rst
@@ -93,7 +92,7 @@ architecture Structural of Sistema is
         
         port (
             clk : in std_logic;
-            rst : in std_logic;
+            read : in std_logic;
             address: in STD_LOGIC_VECTOR(ADDR_WIDTH-1 downto 0);
             content: out STD_LOGIC_VECTOR(7 downto 0)
         );
@@ -117,15 +116,12 @@ architecture Structural of Sistema is
     signal read_sig : std_logic;
     signal A_sig : std_logic;
     signal last_sig : std_logic;
-    signal done_sig : std_logic;
+   -- signal done_sig : std_logic;
     
     signal addr : std_logic_vector(3 downto 0);
     signal rom_out : std_logic_vector(7 downto 0);
     signal mem_out : std_logic_vector(7 downto 0);
     signal comparatore_out : std_logic;
-
- -- signal X_reg : std_logic_vector(7 downto 0);
-
     
 begin
 
@@ -138,8 +134,8 @@ begin
     last => last_sig,
     wrt => write_sig,
     read => read_sig,
-    A_cont => A_sig,
-    done => done_sig
+    A_cont => A_sig
+    --done => done_sig
     );
     
     CNT: Contatore
@@ -154,7 +150,7 @@ begin
     ROM_A: ROM
     PORT MAP(
     clk => clk_sis,
-    rst => rst_sis,
+    read => read_sig,
     address => addr,
     content => rom_out
     );
@@ -162,8 +158,6 @@ begin
     COMP: Comparatore
     PORT MAP(
     a => rom_out,
-    x => "10101010",
- -- x => X_reg
     y => comparatore_out
     );
     
@@ -178,7 +172,5 @@ begin
     );
     
     Y<= mem_out;
- -- X_reg <= X_in;
-
 
 end Structural;
