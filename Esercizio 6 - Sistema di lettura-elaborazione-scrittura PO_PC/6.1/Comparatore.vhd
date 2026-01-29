@@ -88,3 +88,45 @@ end Behavioral;
   --  y <= '1' when a = X_REF else '0';
 --end Behavioral;
 
+
+
+
+
+  ----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 15.11.2025 17:40:41
+-- Design Name: 
+-- Module Name: Comparatore - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: Comparatore 8-bit con stringa X precaricata come COSTANTE interna.
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity Comparatore is
+  Port (
+    a : in  std_logic_vector(7 downto 0);
+    y : out std_logic
+  );
+end Comparatore;
+
+architecture Behavioral of Comparatore is
+    -- Stringa X precaricata (modifica qui il valore desiderato)
+    constant X_REF : std_logic_vector(7 downto 0) := "10101010";
+begin
+    -- Comparatore combinatorio
+    y <= '1' when a = X_REF else '0';
+end Behavioral;
+
