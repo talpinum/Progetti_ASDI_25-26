@@ -40,14 +40,14 @@ entity Control_unit is
     last : in std_logic; -- dal contatore e capisco che devo fare done
     wrt : out std_logic; -- write sincrono su MEM
     read : out std_logic; -- read sincrono su ROM
-    A_cont : out std_logic; -- abilitiamo il contatore
-    done : out std_logic
+    A_cont : out std_logic -- abilitiamo il contatore
+   -- done : out std_logic
     );
 end Control_unit;
 
 architecture Behavioral of Control_unit is
 
-    type STATI is (IDLE, LEGGI, WAIT_READ, COMPARE, WRITE, NEXT_ADDR, FINE);
+    type STATI is (IDLE, LEGGI, CHECK, WRITE, NEXT_ADDR);
     
     -- signal stato_iniziale : STATI := IDLE;
     signal stato_next : STATI;
@@ -60,11 +60,12 @@ begin
     wrt <= '0';
     read <= '0';
     A_cont <= '0';
-    done <= '0';
-    stato_next <= stato;
+    --done <= '0';
+    --stato_next <= stato;
     
     case stato is 
         when IDLE =>
+            A_cont <= '0';
             if start = '1' then
                 stato_next <= LEGGI;
             else
@@ -73,12 +74,11 @@ begin
             
         when LEGGI => -- metto indirizzo e leggo ma con la ROM sincrona dovrò aspettare per leggere
             read <= '1';
-            stato_next <= WAIT_READ;
-        
-        when WAIT_READ => -- aspetto clk in cui la ROM aggiorna l'uscita
-            stato_next <= COMPARE;
+            stato_next <= CHECK;
+            A_cont <= '0';
             
-        when COMPARE =>
+        when CHECK =>
+            read <= '0';
             if match = '1' then
                stato_next <= WRITE;
             else
@@ -91,18 +91,13 @@ begin
         
         when NEXT_ADDR =>
             A_cont <= '1';
+            wrt <= '0';
             if last = '1' then
-                stato_next <= FINE;
+                stato_next <= IDLE;
             else
                 stato_next <= LEGGI;
             end if;
-            
-        when FINE => 
-            done <= '1';
-            if start = '0' then
-                stato_next <= IDLE;
-            end if;
-        
+                   
         end case;
    end process;
    
