@@ -48,10 +48,10 @@
 </details>
 
 <details>
-<summary><strong>⏳ Esercizio 6 - Sistema di lettura-elaborazione-scrittura PO_PC</strong></summary>
+<summary><strong>✅ Esercizio 6 - Sistema di lettura-elaborazione-scrittura PO_PC</strong></summary>
 
 - [x] 6.1
-- [ ] 6.2
+- [x] 6.2
 
 </details>
 
