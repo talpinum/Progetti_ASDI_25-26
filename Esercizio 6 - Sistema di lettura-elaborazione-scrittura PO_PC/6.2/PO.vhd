@@ -142,11 +142,14 @@ begin
       addr  => addr_s,
       rst => rst,
       d_in  => rom_out_s,
-      d_out => Y
+      d_out => mem_out_s   
     );
 
   -- USCITA SU LED
- -- Y <= mem_out_s;
-  Y <= rom_out_s when wrt = '1' else (others => '0');
+ Y <= mem_out_s;
+ --Y <= rom_out_s when wrt = '1' else (others => '0');
+ --Y <= rom_out_s when read = '1' else
+    -- mem_out_s when wrt  = '1' else
+  --  (others => '0');
 
 end Structural;
