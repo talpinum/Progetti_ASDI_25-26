@@ -86,10 +86,10 @@
 </details>
 
 <details>
-<summary><strong>❌ Esercizio 11- Rete di interconnessione multistadio</strong></summary>
+<summary><strong>✅ Esercizio 11- Rete di interconnessione multistadio</strong></summary>
 
-- [ ] 11.1
-- [ ] 11.2
+- [x] 11.1
+- [x] 11.2
 
 </details>
 
