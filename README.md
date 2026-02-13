@@ -94,9 +94,9 @@
 </details>
 
 <details>
-<summary><strong>❌ Esercizio 12 - Sistema complesso</strong></summary>
+<summary><strong>✅ Esercizio 12 - Sistema complesso</strong></summary>
 
-- [ ] 12
+- [x] 12
 
 </details>
 
