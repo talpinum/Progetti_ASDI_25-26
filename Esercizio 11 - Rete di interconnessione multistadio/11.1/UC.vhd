@@ -2,75 +2,75 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
-entity Omega_Controller is
+entity UC is
     Port ( 
-        clk           : in  STD_LOGIC;
-        reset         : in  STD_LOGIC;
+        clk : in  STD_LOGIC;
+        rst : in  STD_LOGIC;
         
-        -- INPUT 1: Chi vuole trasmettere? (1 bit per nodo)
-        req_vector    : in  STD_LOGIC_VECTOR(7 downto 0);
+        -- INPUT 1: Richieste di trasmissione (1 bit per nodo)
+        req_vector : in  STD_LOGIC_VECTOR(7 downto 0);
         
-        -- INPUT 2: Dove vogliono andare? (3 bit per nodo * 8 nodi = 24 bit)
+        -- INPUT 2: Destinazioni richiest (3 bit per nodo * 8 nodi = 24 bit)
         -- Ordine: [Dest7]...[Dest1][Dest0]
-        dest_flat_in  : in  STD_LOGIC_VECTOR(23 downto 0);
+        dest_flat_in : in  STD_LOGIC_VECTOR(23 downto 0);
         
         -- OUTPUT verso Datapath
         ctrl_src_addr : out STD_LOGIC_VECTOR(2 downto 0);
         ctrl_dst_addr : out STD_LOGIC_VECTOR(2 downto 0);
-        valid_out     : out STD_LOGIC
+        valid_out : out STD_LOGIC
     );
-end Omega_Controller;
+end UC;
 
-architecture Behavioral of Omega_Controller is
+architecture Behavioral of UC is
     
-    -- Definizione array per spacchettare le destinazioni
+    -- Array per organizzare le destinazioni in modo indicizzabile
     type dest_array_type is array (0 to 7) of std_logic_vector(2 downto 0);
-    signal destinations_arr : dest_array_type;
+    signal dest_array  : dest_array_type;
 
-    -- Registro per tenere il segno della priorità (token)
+    -- Registro che memorizza la posizione corrente del token di priorità
     signal priority_token : integer range 0 to 7;
 
 begin
 
-    -- 1. SPACCHETTAMENTO CONCORRENTE (Come hai fatto nel Datapath)
+    --  SPACCHETTAMENTO CONCORRENTE (Come nel Datapath)
     -- Trasforma il vettore 24 bit in un array accessibile tramite indice
     gen_dest_array: for i in 0 to 7 generate
-        destinations_arr(i) <= dest_flat_in((i*3)+2 downto i*3);
+        dest_array(i) <= dest_flat_in((i*3)+2 downto i*3);
     end generate;
 
-    -- 2. PROCESSO DI ARBITRAGGIO
-    process(clk, reset)
-        variable req_double : unsigned(15 downto 0);
-        variable found      : boolean;
-        variable temp_win   : integer range 0 to 7;
-        variable calc_idx   : integer;
+    --PROCESSO DI ARBITRAGGIO ROUND-ROBIN
+    process(clk, rst)
+        variable req_ext : unsigned(15 downto 0);
+        variable found : boolean;
+        variable selected_idx : integer range 0 to 7;
+        variable calc_idx : integer;
     begin
-        if reset = '1' then
+        if rst = '1' then
             priority_token <= 0;
-            ctrl_src_addr  <= (others => '0');
-            ctrl_dst_addr  <= (others => '0');
-            valid_out      <= '0';
+            ctrl_src_addr <= (others => '0');
+            ctrl_dst_addr <= (others => '0');
+            valid_out <= '0';
         elsif rising_edge(clk) then
             
-            -- Creazione vettore doppio per ricerca circolare
-            req_double := unsigned(std_logic_vector'(req_vector & req_vector));
+            -- Duplica il vettore richieste per facilitare la scansione circolare
+            req_ext := unsigned(std_logic_vector'(req_vector & req_vector));
             
             found := false;
-            temp_win := 0; 
-            valid_out <= '0'; -- Default se nessuno trasmette
+            selected_idx := 0; 
+            valid_out <= '0'; -- se nessuno trasmette
 
-            -- Scansione della finestra di 8 bit a partire dal token
+            -- Scansione della finestra di 8 bit a partire dal token (puntatore corrente)
             for i in 0 to 7 loop
                 if not found then
                     -- Controlliamo il bit (token + i)
-                    if req_double(priority_token + i) = '1' then
+                    if req_ext(priority_token + i) = '1' then
                         
                         -- Calcolo dell'indice reale del vincitore (modulo 8 semplificato)
                         calc_idx := priority_token + i;
                         if calc_idx >= 8 then
-                            temp_win := calc_idx - 8;
+                            selected_idx := calc_idx - 8;
                         else
-                            temp_win := calc_idx;
+                            selected_idx := calc_idx;
                         end if;
                         
                         found := true;
@@ -80,20 +80,19 @@ begin
 
             -- Se abbiamo trovato un vincitore, aggiorniamo le uscite e il token
             if found then
-                -- A. Comunica alla rete CHI trasmette (Sorgente)
-                ctrl_src_addr <= std_logic_vector(to_unsigned(temp_win, 3));
+                -- Indica quale nodo trasmette (Sorgente)
+                ctrl_src_addr <= std_logic_vector(to_unsigned(selected_idx, 3));
                 
-                -- B. Comunica alla rete DOVE andare (pescando dall'array creato sopra)
-                ctrl_dst_addr <= destinations_arr(temp_win);
+                -- Comunica alla rete DOVE andare (pescando dall'array creato sopra)
+                ctrl_dst_addr <= dest_array(selected_idx);
                 
-                -- C. Segnala validità
                 valid_out <= '1';
 
-                -- D. Aggiorna Priorità: il token passa al successivo del vincitore
-                if temp_win = 7 then
+                -- Aggiorna Priorità: il token passa al successivo del vincitore
+                if selected_idx = 7 then
                     priority_token <= 0;
                 else
-                    priority_token <= temp_win + 1;
+                    priority_token <= selected_idx + 1;
                 end if;
             
             else
