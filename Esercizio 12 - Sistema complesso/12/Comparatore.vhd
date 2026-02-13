@@ -1,3 +1,6 @@
+library IEEE;
+use IEEE. STD_LOGIC_1164 .ALL;
+
 entity Comparatore is
 Port (
    A : in STD_LOGIC_VECTOR (7 downto 0); -- Dato ricevuto dal registro
