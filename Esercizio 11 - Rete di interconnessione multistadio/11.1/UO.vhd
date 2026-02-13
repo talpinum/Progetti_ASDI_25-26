@@ -38,13 +38,13 @@ entity UO is
     port (
         -- Input appiattito: 8 canali * 4 bit = 32 bit totali
         -- node_in(31..28) è nodo 7, node_in(3..0) è nodo 0
-        node_in  : in  std_logic_vector(31 downto 0); 
+        node_in : in  std_logic_vector(31 downto 0); 
         
         -- Segnali di controllo dalla CU
-        -- SRC_ADDR controlla quale input del switch prendere (routing sorgente)
-        -- DST_ADDR controlla quale output del switch prendere (routing destinazione)
-        SRC_ADDR : in  std_logic_vector(2 downto 0);
-        DST_ADDR : in  std_logic_vector(2 downto 0);
+        -- src_addr controlla quale input del switch prendere (routing sorgente)
+        -- dst_addr controlla quale output del switch prendere (routing destinazione)
+        src_addr : in  std_logic_vector(2 downto 0);
+        dst_addr : in  std_logic_vector(2 downto 0);
         
         node_out : out std_logic_vector(31 downto 0)
     );
@@ -81,10 +81,10 @@ begin
     stage1_gen: for i in 0 to 3 generate
         sw_s1: SWITCH
         port map (
-            x1  => input_arr(i),       -- 0, 1, 2, 3 (il primo switch prende i 4 bit da 0-3 in IN0)
-            x2  => input_arr(i+4),     -- 4, 5, 6, 7 (il primo switch prende i 4 bit da 4-7 in IN1)
-            src  => SRC_ADDR(2),        -- MSB della sorgente
-            dest  => DST_ADDR(2),        -- MSB della destinazione
+            x1 => input_arr(i),       -- 0, 1, 2, 3 (il primo switch prende i 4 bit da 0-3 in IN0)
+            x2 => input_arr(i+4),     -- 4, 5, 6, 7 (il primo switch prende i 4 bit da 4-7 in IN1)
+            src => src_addr(2),        -- MSB della sorgente
+            dest => dst_addr(2),        -- MSB della destinazione
             Y1 => stage1_out(i*2),    -- 0, 2, 4, 6
             Y2 => stage1_out(i*2+1)   -- 1, 3, 5, 7
         );
@@ -104,8 +104,8 @@ begin
     sw_s2_0: SWITCH
     port map ( x1 => stage1_out(0), 
                x2 => stage1_out(4), 
-               src => SRC_ADDR(1), 
-               dest => DST_ADDR(1), 
+               src => src_addr(1), 
+               dest => dst_addr(1), 
                y1 => stage2_out(0), 
                y2 => stage2_out(1)
                );
@@ -113,8 +113,8 @@ begin
     sw_s2_1: SWITCH
     port map ( x1 => stage1_out(1), 
                x2 => stage1_out(5), 
-               src => SRC_ADDR(1), 
-               dest => DST_ADDR(1), 
+               src => src_addr(1), 
+               dest => dst_addr(1), 
                y1 => stage2_out(2), 
                y2 => stage2_out(3)
                );
@@ -123,8 +123,8 @@ begin
     port map ( 
               x1 => stage1_out(2), 
               x2 => stage1_out(6), 
-              src => SRC_ADDR(1), 
-              dest => DST_ADDR(1), 
+              src => src_addr(1), 
+              dest => dst_addr(1), 
               y1 => stage2_out(4), 
               y2 => stage2_out(5)
               );
@@ -132,8 +132,8 @@ begin
     sw_s2_3: SWITCH
     port map ( x1 => stage1_out(3), 
                x2 => stage1_out(7), 
-               src => SRC_ADDR(1), 
-               dest => DST_ADDR(1), 
+               src => src_addr(1), 
+               dest => dst_addr(1), 
                y1 => stage2_out(6), 
                y2 => stage2_out(7)
                );
@@ -145,10 +145,10 @@ begin
     gen_stage3: for i in 0 to 3 generate
         sw_s3: SWITCH
         port map (
-            x1  => stage2_out(i),
-            x2  => stage2_out(i+4),
-            src  => SRC_ADDR(0),
-            dest  => DST_ADDR(0),       -- LSB indirizzo destinazione
+            x1 => stage2_out(i),
+            x2 => stage2_out(i+4),
+            src => src_addr(0),
+            dest => dst_addr(0),       -- LSB indirizzo destinazione
             y1 => output_arr(i*2),
             y2 => output_arr(i*2+1)
         );
