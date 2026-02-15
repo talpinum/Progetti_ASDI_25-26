@@ -36,7 +36,7 @@ entity UO_A is
   clk : in std_logic;
   rst : in std_logic;
   -- comandi dalla UC
-  ROM_A : in std_logic;
+ -- ROM_A : in std_logic;
   UART_WR : in std_logic;
   INCR_A : in std_logic;
   
