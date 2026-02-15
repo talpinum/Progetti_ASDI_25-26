@@ -49,9 +49,7 @@ architecture structural of Unita_operativa_A is
             --N : integer := 16; -- Le N locazioni
           --  ADDR_WIDTH : integer := 4
         --);
-        port (
-            clk : in std_logic;
-           
+        port (           
             address: in STD_LOGIC_VECTOR(3 downto 0);
             content: out STD_LOGIC_VECTOR(7 downto 0)
         );
@@ -92,7 +90,6 @@ architecture structural of Unita_operativa_A is
 begin
     ROM_A : ROM
     port map(
-        clk => clk_o,
         address => addr,
         content => rom_out
     );
