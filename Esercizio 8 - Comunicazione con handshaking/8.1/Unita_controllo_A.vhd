@@ -54,20 +54,20 @@ entity Unita_controllo_A is
  start : in std_logic;
  last : in std_logic;
  A_cont : out std_logic;
- read : out std_logic;
- 
+ load_A : out std_loigc;
+  
  -- comandi protocollo --
  ack : in std_logic;
  req : out std_logic;
  
- -- la fine -- 
+  
  done : out std_logic
  );
 end Unita_controllo_A;
 
 architecture Behavioral of Unita_controllo_A is
 
-    type STATI is (IDLE, READ_ROM, SEND_REQ, INCR, CHECK_LAST, FINE);
+    type STATI is (IDLE, READ_ROM, CARICO, SEND_REQ, WAITACK0, INCR);
     
     signal stato_next: STATI;
     signal stato: STATI;
@@ -89,8 +89,9 @@ begin
     begin
         read <= '0';
         req <= '0';
-        done <= '0';
+        load_A <= '0';
         A_cont <= '0';
+        done <= '0';
         stato_next <= stato;
         
         case stato is
@@ -102,32 +103,37 @@ begin
                 end if;
              
              when READ_ROM =>
-                read <= '1'; -- abilito la rom
-                stato_next <= SEND_REQ;
-        
+                
+                 stato_next <= SEND_REQ;
+
+            when CARICO => 
+                 
+                 load_A <= '1';
+                 stato_next <= SEND_REQ;
+
             when SEND_REQ =>
                 req <= '1';
                 if ack = '1' then
-                    stato_next <= INCR;
+                    stato_next <= WAITACK0;
+                else  
+                    stato_next <= SEND_REQ;
                 end if;
-            
-            when INCR =>
-                req <= '0';
-                if ack = '0' then
-                    A_cont <= '1';
-                    stato_next <= CHECK_LAST;
-                end if;
-            
-            when CHECK_LAST =>
-                if last = '1' then
-                    stato_next <= FINE;
+                 
+            when WAITACK0 =>
+          
+                if ack = '1' then
+                    stato_next <= WAITACK0;
                 else
-                    stato_next <= READ_ROM;
-                end if;
-                    
-            when FINE =>
-                done <= '1';
-                stato_next <= IDLE;
+                    stato_next <= INCR;
+                end if;    
+                 
+            when INCR =>
+                A_cont <= '1';
+                if done = '1' then
+                 stato_next <= IDLE;
+                else
+                 stato_next <= READ_ROM;
+               end if;
             
         end case;
     end process; 
