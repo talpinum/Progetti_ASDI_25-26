@@ -70,9 +70,23 @@ architecture structural of Unita_operativa_A is
         last : out std_logic -- varrà 1 quando il mio segnale di count varrà N-1
       );
    end component;
+
+    component registro_pipo is
+        generic (
+            N : integer := 8
+        );
+        port (
+            clk   : in  std_logic;
+            rst   : in  std_logic;
+            load  : in  std_logic;
+            d_in  : in  std_logic_vector(N-1 downto 0);
+            q_out : out std_logic_vector(N-1 downto 0)
+        );
+    end component;
    
    signal addr : std_logic_vector(3 downto 0);
    signal rom_out : std_logic_vector(7 downto 0);
+   signal reg_out   : std_logic_vector(7 downto 0);
    signal last_sig : std_logic;
    
 begin
@@ -91,6 +105,18 @@ begin
         value => addr,
         last => last_sig
     );
+
+    REG_A : registro_pipo
+        generic map(
+            N => 8
+        )
+        port map(
+            clk   => clk_o,
+            rst   => rst_o,
+            load  => read,        -- carica quando read = 1
+            d_in  => rom_out,
+            q_out => reg_out
+        );
     
     -- uscite U.O.A
     last_o <= last_sig;
