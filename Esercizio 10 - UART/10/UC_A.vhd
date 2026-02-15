@@ -49,7 +49,7 @@ end UC_A;
 
 architecture Behavioral of UC_A is
 
-    type STATI is (IDLE, LOAD, SEND, FINE);
+    type STATI is (IDLE, LOAD, SEND, A_CONT);
     signal stato : STATI;
     signal stato_next : STATI;
 
@@ -79,6 +79,7 @@ begin
             
             when LOAD =>
             -- dopo aver letto dalla ROM scriviamo in UART
+                UART_WR <= '1';
                 stato_next <= SEND;
             
             when SEND =>
@@ -89,15 +90,20 @@ begin
                     stato_next <= SEND;
                 end if;
                 
-            when FINE =>
+            when A_CONT =>
+                INCR_A <= '1';
+                DONE <= '1'
+                IF last = '1' then
                 stato_next <= IDLE;
+                else
+                  stato_next <= LOAD;
         
         end case;
     end process;    
     
     ROM_A <= '1' when stato = LOAD else '0';
-    UART_WR <= '1' when stato = SEND else '0';
-    INCR_A <= '1' when stato = FINE else '0';
-    DONE <= '1' when stato = FINE else '0';
+    UART_WR <= '0'
+    INCR_A <= '0'
+    DONE <= '0'
 
 end Behavioral;
