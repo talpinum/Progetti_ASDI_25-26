@@ -37,7 +37,9 @@ entity UC is
   rst : in std_logic;
   firstbutton : in std_logic;
   secondbutton : in std_logic;
+  load_sel : in std_logic;
   switch : in std_logic_vector(15 downto 0);
+  sel_out : out std_logic_vector(7 downto 0);
   x_out : out std_logic_vector(31 downto 0)
    );
 end UC;
@@ -46,6 +48,7 @@ architecture Behavioral of UC is
 
     signal first_reg : std_logic_vector(15 downto 0) := (others => '0');
     signal second_reg : std_logic_vector(15 downto 0) := (others => '0');
+    signal reg_sel : STD_LOGIC_VECTOR (7 downto 0) := ( others => '0');
 
 begin
 
@@ -61,8 +64,11 @@ begin
                 
             elsif secondbutton = '1' then
                 second_reg <= switch;
+                
+            elsif load_sel = '1' then
+                reg_sel <= switch(7 downto 0);
             end if;
-            end if;
+        end if;
     end process;
     
     x_out <=  first_reg & second_reg;
