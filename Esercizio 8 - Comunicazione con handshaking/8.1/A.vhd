@@ -50,7 +50,7 @@ architecture Structural of A is
         start : in std_logic;
         last : in std_logic;
         A_cont : out std_logic;
-        read : out std_logic;
+        load_A : out std_loigc;
          
         -- comandi protocollo --
         ack : in std_logic;
