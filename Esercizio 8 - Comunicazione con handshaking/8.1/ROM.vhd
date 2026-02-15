@@ -8,9 +8,7 @@ entity ROM is
       --  ADDR_WIDTH : integer := 4
     --);
     
-    port (
-        clk : in std_logic;
-       
+    port (       
         address: in STD_LOGIC_VECTOR(3 downto 0);
         content: out STD_LOGIC_VECTOR(7 downto 0)
     );
