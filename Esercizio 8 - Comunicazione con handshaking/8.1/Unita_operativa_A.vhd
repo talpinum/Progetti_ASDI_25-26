@@ -35,7 +35,7 @@ entity Unita_operativa_A is
     Port (
     clk_o : in std_logic;
     rst_o : in std_logic;
-    read : in std_logic;
+    load_reg : in std_logic;
     A_cont : in std_logic;
     last_o : out std_logic;
     Y : out std_logic_vector(7 downto 0)
@@ -110,13 +110,13 @@ begin
         port map(
             clk   => clk_o,
             rst   => rst_o,
-            load  => read,        -- carica quando read = 1
+            load  => load_reg,        -- carica quando load_reg = 1
             d_in  => rom_out,
             q_out => reg_out
         );
     
     -- uscite U.O.A
     last_o <= last_sig;
-    Y <= rom_out;
+    Y <= reg_out;
     
 end structural;
