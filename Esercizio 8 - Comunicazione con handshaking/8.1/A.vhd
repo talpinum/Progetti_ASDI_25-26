@@ -50,14 +50,14 @@ architecture Structural of A is
         start : in std_logic;
         last : in std_logic;
         A_cont : out std_logic;
-        load_A : out std_loigc;
+        load_A : out std_logic;
          
         -- comandi protocollo --
         ack : in std_logic;
         req : out std_logic;
         
         -- la fine -- 
-        done : out std_logic
+        done : in std_logic
     );
  end component;
 
@@ -73,7 +73,6 @@ architecture Structural of A is
  end component;
  
     signal last_sig  : std_logic;
-    signal read_sig  : std_logic;
     signal A_cont_sig: std_logic;
     signal done_sig  : std_logic;
     signal data_sig  : std_logic_vector(7 downto 0);
@@ -87,14 +86,13 @@ begin
         start => start_A,
         last => last_sig,
         A_cont => A_cont_sig,
-        read => read_sig,
          
         -- comandi protocollo --
         ack => ack_A,
         req => req_A,
         
         -- la fine -- 
-        done => done_sig
+        done => last_sig
     );
     
     UO_A : Unita_operativa_A
