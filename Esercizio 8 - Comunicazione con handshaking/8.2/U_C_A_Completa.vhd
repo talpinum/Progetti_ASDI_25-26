@@ -54,7 +54,7 @@ entity U_C_A_Completa is
  start : in std_logic;
  last : in std_logic;
  A_cont : out std_logic;
- read : out std_logic;
+ load_A : out std_logic;
  
  -- comandi protocollo --
  ack : in std_logic;
@@ -62,13 +62,13 @@ entity U_C_A_Completa is
  ok_user_ack : in std_logic;
  
  -- la fine -- 
- done : out std_logic
+ done : in std_logic
  );
 end U_C_A_Completa;
 
 architecture Behavioral of U_C_A_Completa is
 
-    type STATI is (IDLE, READ_ROM, SEND_REQ, INCR, CHECK_LAST, FINE);
+    type STATI is (IDLE, READ_ROM, CARICO, SEND_REQ, WAIT_DONE, INCR);
     
     signal stato_next: STATI;
     signal stato: STATI;
@@ -88,10 +88,9 @@ begin
     
     process(stato, start, ack, last)
     begin
-        read <= '0';
         req <= '0';
-        done <= '0';
         A_cont <= '0';
+        load_A <= '0';
         stato_next <= stato;
         
         case stato is
@@ -103,32 +102,36 @@ begin
                 end if;
              
              when READ_ROM =>
-                read <= '1'; -- abilito la rom
-                stato_next <= SEND_REQ;
+               -- read <= '1'; -- abilito la rom
+                stato_next <= CARICO;
+
+          when CARICO =>
+              load_A <= '1';
+              stato_next <= SEND_REQ;
         
             when SEND_REQ =>
                 req <= '1';
-                if ack = '1' then
+                if ack = '1' & ok_user_ack = '1' then
                     stato_next <= INCR;
+                else
+                    stato_next <= SEND_REQ;
+                end if;
+                             
+            when WAIT_DONE =>
+                if done = '1' then
+                    stato_next <= INCR;
+                else
+                    stato_next <= WAIT_DONE;
                 end if;
             
             when INCR =>
-                req <= '0';
-                if ack = '0' and ok_user_ack = '1' then
+                
                     A_cont <= '1';
-                    stato_next <= CHECK_LAST;
-                end if;
-            
-            when CHECK_LAST =>
-                if last = '1' then
-                    stato_next <= FINE;
-                else
+                 if last = '1' then
+                    stato_next <= IDLE;
+                 else
                     stato_next <= READ_ROM;
-                end if;
-                    
-            when FINE =>
-                done <= '1';
-                stato_next <= IDLE;
+                 end if;   
             
         end case;
     end process; 
