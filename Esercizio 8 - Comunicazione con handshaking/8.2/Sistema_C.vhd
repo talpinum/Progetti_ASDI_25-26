@@ -30,74 +30,81 @@ use IEEE.STD_LOGIC_1164.ALL;
 -- any Xilinx leaf cells in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
-
 entity Sistema_C is
     Port (
-    clk : in std_logic;
-    rst : in std_logic;
-    result : out std_logic_vector(4 downto 0);
-    okUser  : in std_logic;
-    start : in std_logic
+        clk : in std_logic;
+        rst : in std_logic;
+        start : in std_logic;
+        okUser : in std_logic;
+
+        resultB : out std_logic_vector(4 downto 0);
+        ok_user_B : out std_logic
     );
 end Sistema_C;
 
-architecture Structural of Sistema_C is
+architecture Structural of A_B_System is
 
-    signal req_sig : std_logic;
-    signal ack_sig : std_logic;
-    signal dato_sig : std_logic_vector(7 downto 0);
-    signal ok_user_B_sig  : std_logic; -- da B verso A
- 
- component A_Completo is   
-     Port (
-         clk_A : in std_logic;
-         rst_A : in std_logic;
-         start_A : in std_logic;
-         ack_A : in std_logic;
-         ok_user_ack_A : in std_logic;
-         req_A : out std_logic;
-         dato_A : out std_logic_vector(7 downto 0)
-     );
- end component;
- 
- component B_Completo is
-    Port (
-        clkB : in std_logic;
-        rstB : in std_logic;
-        req : in std_logic; -- da nodo A
-        data_in : in std_logic_vector(7 downto 0); -- da nodo A
-        ack : out std_logic;
-        okUser : in std_logic;
-        ok_user_B : out std_logic;
-        resultB : out std_logic_vector(4 downto 0)
-    );
- end component;
-    
+    component A_Completo
+        Port (
+            clkA : in std_logic;
+            rstA : in std_logic;
+            startA : in std_logic;
+            ackA : in std_logic;
+            reqA : out std_logic;
+            ok_user_ackA : in std_logic;
+            doneA : in std_logic;
+            dataA : out std_logic_vector(7 downto 0)
+        );
+    end component;
+
+    component B_Completo
+        Port (
+            clkB : in std_logic;
+            rstB : in std_logic;
+            req : in std_logic;
+            data_in : in std_logic_vector(7 downto 0);
+            ack : out std_logic;
+            okUser : in std_logic;
+            ok_user_B : out std_logic;
+            resultB : out std_logic_vector(4 downto 0)
+        );
+    end component;
+
+    signal req_sig       : std_logic;
+    signal ack_sig       : std_logic;
+    signal data_sig      : std_logic_vector(7 downto 0);
+    signal ok_user_sig   : std_logic;
+
 begin
-    
+
+    -- BLOCCO A
     A_inst : A_Completo
         port map(
-            clk_A => clk,
-            rst_A => rst,
-            start_A => start,
-            ack_A => ack_sig,       -- input da B
-            req_A => req_sig,       -- output verso B
-            ok_user_ack_A => ok_user_B_sig, -- feedback da B
-            dato_A => dato_sig      -- output dati verso B
+            clkA => clk,
+            rstA => rst,
+            startA => start,
+            ackA => ack_sig,
+            reqA => req_sig,
+            ok_user_ackA => ok_user_sig,
+            doneA => '0',        -- ATTENZIONE: segnale fittizio
+            dataA => data_sig
         );
-        
-    -- Nodo B
+
+    -- BLOCCO B
     B_inst : B_Completo
         port map(
             clkB => clk,
             rstB => rst,
-            req => req_sig,         -- input da A
-            ack => ack_sig,         -- output verso A
-            data_in => dato_sig,    -- input dati da A
-            okUser => okUser, -- utente
-            ok_user_B => ok_user_B_sig, -- verso A
-            resultB => result       -- output risultato
+            req => req_sig,
+            data_in => data_sig,
+            ack => ack_sig,
+            okUser => okUser,
+            ok_user_B => ok_user_sig,
+            resultB => resultB
         );
 
+    ok_user_B <= ok_user_sig;
+
 end Structural;
+
 
