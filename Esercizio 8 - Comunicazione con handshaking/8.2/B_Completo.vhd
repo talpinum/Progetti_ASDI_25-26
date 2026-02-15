@@ -19,6 +19,7 @@ eentity B_Completo is
         ack : out std_logic;
         okUser : in std_logic;                   -- input utente
         ok_user_B : out std_logic;               -- verso esterno
+        done : out std_logic;
         resultB : out std_logic_vector(4 downto 0)
     );
 end B_Completo;
