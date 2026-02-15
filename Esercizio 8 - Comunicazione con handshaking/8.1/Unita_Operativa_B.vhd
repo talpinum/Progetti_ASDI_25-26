@@ -35,7 +35,7 @@ entity Unita_Operativa_B is
     Port (
     clk_o : in std_logic;
     rst_o : in std_logic;
-    load    : in  std_logic;
+    load : in  std_logic;
     data_out : out std_logic_vector(4 downto 0);
     data_in : in std_logic_vector(7 downto 0)
     );
@@ -59,6 +59,19 @@ architecture Behavioral of Unita_Operativa_B is
         D : out std_logic_vector(3 downto 0)
         );
     end component;
+
+     component registro_pipo is
+        generic (
+            N : integer := 8
+        );
+        port (
+            clk   : in  std_logic;
+            rst   : in  std_logic;
+            load  : in  std_logic;
+            d_in  : in  std_logic_vector(N-1 downto 0);
+            q_out : out std_logic_vector(N-1 downto 0)
+        );
+    end component;
     
     signal data_reg : std_logic_vector(7 downto 0) := (others => '0');
     signal sinistra, destra : std_logic_vector(3 downto 0);
@@ -67,18 +80,17 @@ architecture Behavioral of Unita_Operativa_B is
 
 begin
     
-    process(clk_o, rst_o)
-    begin
-        if rising_edge(clk_o) then
-            if rst_o = '1' then
-                data_reg <= (others => '0');
-            else
-                if load = '1' then
-                    data_reg <= data_in;
-                end if;
-            end if;
-        end if;
-    end process;
+    REG_B : registro_pipo
+        generic map(
+            N => 8
+        )
+        port map(
+            clk   => clk_o,
+            rst   => rst_o,
+            load  => load,
+            d_in  => data_in,
+            q_out => data_reg
+        );
     
     Sommatore : Sommatore4
         Port map(
