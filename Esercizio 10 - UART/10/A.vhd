@@ -48,7 +48,7 @@ component UO_A is
   clk : in std_logic;
   rst : in std_logic;
   -- comandi dalla UC
-  ROM_A : in std_logic;
+  --ROM_A : in std_logic;
   UART_WR : in std_logic;
   INCR_A : in std_logic;
   
@@ -67,7 +67,7 @@ component UC_A is
   
   TBE : in std_logic; -- TBE della UART
   
-  ROM_A : out std_logic; -- Abilitiamo la lettura ROM
+  --ROM_A : out std_logic; -- Abilitiamo la lettura ROM
   INCR_A: out std_logic; -- incremento indirizzo ROM
   UART_WR : out std_logic;
   DONE : out std_logic -- fine operazione
@@ -89,7 +89,7 @@ begin
             start => start,
             last => '0',     -- il last non è esposto
             TBE => tbe_A,
-            ROM_A => rom_a,
+           -- ROM_A => rom_a,
             INCR_A => incr_a,
             UART_WR => uart_wrt,
             DONE => done
@@ -99,7 +99,7 @@ begin
         port map(
             clk => clk,
             rst => rst,
-            ROM_A => rom_a,
+           -- ROM_A => rom_a,
             UART_WR=> uart_wrt,
             INCR_A => incr_a,
             TBE => tbe_A,
