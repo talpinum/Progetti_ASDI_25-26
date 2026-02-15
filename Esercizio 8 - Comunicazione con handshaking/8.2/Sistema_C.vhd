@@ -66,6 +66,7 @@ architecture Structural of A_B_System is
             ack : out std_logic;
             okUser : in std_logic;
             ok_user_B : out std_logic;
+            done : out std_logic;
             resultB : out std_logic_vector(4 downto 0)
         );
     end component;
@@ -74,6 +75,8 @@ architecture Structural of A_B_System is
     signal ack_sig       : std_logic;
     signal data_sig      : std_logic_vector(7 downto 0);
     signal ok_user_sig   : std_logic;
+    signal done_sig : std_logic;
+
 
 begin
 
@@ -86,7 +89,7 @@ begin
             ackA => ack_sig,
             reqA => req_sig,
             ok_user_ackA => ok_user_sig,
-            doneA => '0',        -- ATTENZIONE: segnale fittizio
+            doneA => done_sig,        -- ATTENZIONE: segnale fittizio
             dataA => data_sig
         );
 
@@ -100,6 +103,7 @@ begin
             ack => ack_sig,
             okUser => okUser,
             ok_user_B => ok_user_sig,
+            done => done_sig,        -- esce verso A
             resultB => resultB
         );
 
