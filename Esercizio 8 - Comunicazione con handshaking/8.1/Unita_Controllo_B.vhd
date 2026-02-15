@@ -43,7 +43,7 @@ end Unita_Controllo_B;
 
 architecture Behavioral of Unita_Controllo_B is
 
-    type STATIB is (IDLE, CARICO_DATI, SEND_ACK, ACK0);
+    type STATIB is (IDLE, CARICO_DATI, SEND_ACK, CHIUDO, ATTESA_RISULTATO);
     
     signal stato_prossimo : STATIB;
     signal stato : STATIB;
@@ -84,16 +84,19 @@ begin
             when SEND_ACK =>
                 ack <= '1';
                 if req = '0' then
-                    stato_prossimo <= ACK0;
+                    stato_prossimo <= CHIUDO;
                 else
                     stato_prossimo <= SEND_ACK;
                 end if;
              
-            when ACK0 =>
+            when CHIUDO =>
                 ack <= '0';
-                if req = '0' then
-                    stato_prossimo <= IDLE;   
-                end if; 
+                
+                stato_prossimo <= ATTESA_RISULTATO;  
+
+            when ATTESA_RISULTATO =>
+                stato_prossimo <= IDLE;
+                
         end case;
     end process;     
 
