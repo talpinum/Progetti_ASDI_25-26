@@ -52,17 +52,16 @@ entity U_C_A_Completa is
  clk : in std_logic;
  rst : in std_logic;
  start : in std_logic;
- last : in std_logic;
+ last : in std_logic; -- contatore arrivato alla fine
  A_cont : out std_logic;
  load_A : out std_logic;
  
  -- comandi protocollo --
  ack : in std_logic;
  req : out std_logic;
- ok_user_ack : in std_logic;
+ ok_user_ack : in std_logic; -- arriva da B
  
- -- la fine -- 
- done : in std_logic
+ done : in std_logic -- arriva da B
  );
 end U_C_A_Completa;
 
