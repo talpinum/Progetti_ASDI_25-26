@@ -37,6 +37,7 @@ entity display is
  rst : in std_logic;
  bt1 : in std_logic;
  bt2 : in std_logic;
+ bt_sel : in std_logic;
  SW : in std_logic_vector(15 downto 0);
  LED : out std_logic_vector(7 downto 0)
  );
@@ -45,8 +46,10 @@ end display;
 architecture Structural of display is
 
     signal x32 : std_logic_vector(31 downto 0);
-    signal s : std_logic_vector(7 downto 0);
+    signal internal_s : std_logic_vector(7 downto 0);
     signal y : std_logic_vector(7 downto 0);
+    signal btn_load1_clean , btn_load2_clean , btn_sel_clean : std_logic;
+    
     
     component UC
     Port (
@@ -54,7 +57,9 @@ architecture Structural of display is
       rst : in std_logic;
       firstbutton : in std_logic;
       secondbutton : in std_logic;
+      load_sel : in std_logic;
       switch : in std_logic_vector(15 downto 0);
+      sel_out : out std_logic_vector(7 downto 0);
       x_out : out std_logic_vector(31 downto 0)
     );
   end component;
@@ -66,27 +71,50 @@ architecture Structural of display is
       output : out std_logic_vector(7 downto 0)
     );
   end component;
+  
+  component ButtonDebouncer
+    Generic(
+        CLK_period : integer := 10;
+        btn_noise_time : integer := 10000000
+    );
+    Port( RST : in STD_LOGIC;
+          CLK : in STD_LOGIC;
+          BTN : in STD_LOGIC;
+          CLEARED_BTN : out STD_LOGIC);
+   end component;
 
 begin
 
+    deb_1: ButtonDebouncer port map (
+        RST => RST , CLK => CLK , BTN => bt1 , CLEARED_BTN => btn_load1_clean
+    );
+    deb_2: ButtonDebouncer port map (
+        RST => RST , CLK => CLK , BTN => bt2 , CLEARED_BTN => btn_load2_clean
+    );
+    deb_3: ButtonDebouncer port map (
+        RST => RST , CLK => CLK , BTN => bt_sel , CLEARED_BTN => btn_sel_clean
+    );
+    
     CU : UC
     port map (
       clk          => clk,
       rst          => rst,
-      firstbutton  => bt1,
-      secondbutton => bt2,
+      firstbutton  => btn_load1_clean,
+      secondbutton => btn_load2_clean,
+      load_sel => btn_sel_clean,
       switch       => SW,
+      sel_out => internal_s,
       x_out        => x32
     );
 
   -- selezione presa direttamente dagli switch
-  s <= SW(7 downto 0);
+  internal_s <= SW(7 downto 0);
 
   -- rete di interconnessione
   NET : rete_di_interconnessione
     port map (
       x      => x32,
-      s      => s,
+      s      => internal_s,
       output => y
     );
 
