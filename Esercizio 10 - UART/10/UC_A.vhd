@@ -40,7 +40,7 @@ entity UC_A is
   
   TBE : in std_logic; -- TBE della UART
   
-  ROM_A : out std_logic; -- Abilitiamo la lettura ROM
+  --ROM_A : out std_logic; -- Abilitiamo la lettura ROM
   INCR_A: out std_logic; -- incremento indirizzo ROM
   UART_WR : out std_logic;
   DONE : out std_logic -- fine operazione
@@ -101,7 +101,7 @@ begin
         end case;
     end process;    
     
-    ROM_A <= '1' when stato = LOAD else '0';
+    --ROM_A <= '1' when stato = LOAD else '0';
     UART_WR <= '0'
     INCR_A <= '0'
     DONE <= '0'
