@@ -61,7 +61,7 @@ entity Unita_controllo_A is
  req : out std_logic;
  
   
- done : out std_logic
+ done : in std_logic
  );
 end Unita_controllo_A;
 
@@ -91,7 +91,6 @@ begin
         req <= '0';
         load_A <= '0';
         A_cont <= '0';
-        done <= '0';
         stato_next <= stato;
         
         case stato is
