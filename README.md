@@ -72,9 +72,9 @@
 </details>
 
 <details>
-<summary><strong>❌ Esercizio 9 - Processore</strong></summary>
+<summary><strong>✅ Esercizio 9 - Processore</strong></summary>
 
-- [ ] 9
+- [x] 9
 
 </details>
 
