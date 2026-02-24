@@ -12,7 +12,7 @@ end entity;
 
 architecture behavioral of Automa is
 
-    type stato is (S0, S1, S2);
+    type stato is (S0, S1, S2, S3, S4);
     signal statoCorrente: stato := S0;
     signal statoProssimo: stato := S0; 
     
@@ -30,64 +30,44 @@ begin
 
     logica_combinatoria: PROCESS (i, statoCorrente)
     begin
-        Y <= '0';
-        if (i = '0') then
-            statoProssimo <= S0;
-        else
-            case statoCorrente is
-                when S0 =>
-                    statoProssimo <= S1;
-                when S1 =>
-                    statoProssimo <= S2;
-                when S2 =>
-                    statoProssimo <= S0;
-                    Y <= '1';
-            end case;
-        end if;
-            
-        
-        /*if (i = '0') then
-            statoProssimo <= S0;
-            Y <= '0';
-        else
-            case statoCorrente is
-                when S0 =>
-                    statoProssimo <= S1;
-                    Y <= '0';
-                when S1 =>
-                    statoProssimo <= S2;
-                    Y <= '0';
-                when S2 =>
-                    statoProssimo <= S0;
-                    Y <= '1';
-            end case;
-        end if;*/
+        case statoCorrente is
 
-
-        /*case statoCorrente is
             when S0 =>
-                Y <= '0';
-                if i = '0' then
-                    statoProssimo <= S0;
+                if (i = '0') then
+                    statoProssimo <= S4;
+            Y <= '0';
                 else
                     statoProssimo <= S1;
+                    Y <= '0';
                 end if;
+
             when S1 =>
-                Y <= '0';
-                if i = '0' then
-                    statoProssimo <= S0;
-                else
-                    statoProssimo <= S2;
-                end if;
-            when S2 =>
-                statoProssimo <= S0;
-                if i = '0' then
+                if (i = '0') then
+                    statoProssimo <= S5;
                     Y <= '0';
                 else
-                    Y <= '1';
+                    statoProssimo <= S2;
+                    Y <= '0';
                 end if;
-        end case;*/
-        
+                    
+            when S2 =>
+                if (i = '0') then
+                    statoProssimo <= S0;
+                    Y <= '0';
+                else
+                    statoProssimo <= S0;
+                    Y <= '1';
+                end if;   
+                    
+            when S4 =>
+                    statoProssimo <= S5;
+                    Y <= '0';    
+
+            when S5 =>
+                    statoProssimo <= S0;
+                    Y <= '0';
+
+        end case;
     end PROCESS;
 
 end architecture;
