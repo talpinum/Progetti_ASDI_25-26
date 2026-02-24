@@ -34,7 +34,7 @@ begin
 
             when S0 =>
                 if (i = '0') then
-                    statoProssimo <= S4;
+                    statoProssimo <= S3;
             Y <= '0';
                 else
                     statoProssimo <= S1;
@@ -43,7 +43,7 @@ begin
 
             when S1 =>
                 if (i = '0') then
-                    statoProssimo <= S5;
+                    statoProssimo <= S4;
                     Y <= '0';
                 else
                     statoProssimo <= S2;
@@ -59,11 +59,11 @@ begin
                     Y <= '1';
                 end if;   
                     
-            when S4 =>
-                    statoProssimo <= S5;
+            when S3 =>
+                    statoProssimo <= S4;
                     Y <= '0';    
 
-            when S5 =>
+            when S4 =>
                     statoProssimo <= S0;
                     Y <= '0';
 
